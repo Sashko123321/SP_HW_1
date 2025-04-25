@@ -34,8 +34,13 @@ using System.Text;
 
 Console.Write("Enter path: ");
 string filePath = Console.ReadLine();
+string myPath = filePath;
 
-Thread fileReaderThread = new Thread(() => Method2(filePath));
+void Run()
+{
+    Method2(myPath);
+}
+Thread fileReaderThread = new Thread(Run);
 fileReaderThread.Start();
 
 Console.WriteLine("Main Thread");
@@ -43,7 +48,7 @@ Console.WriteLine("Main Thread");
 
 void Method2(string path)
 {
-    Console.WriteLine("Main Thread");
+    Console.WriteLine("Method2 Thread");
     try
     {
         using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
